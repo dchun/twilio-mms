@@ -1,0 +1,39 @@
+<h1>Send Message</h1>
+
+<%= form_for(@message, url: {action: 'send_message'}) do |f| %>
+  <% if @message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% @message.errors.full_messages.each do |message| %>
+        <li><%= @message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= f.label :media %>
+    <%= f.text_field :media %>
+  </div>
+
+  <p>Sender: <%= @message.sender %></p>
+
+  <p>Recipients: <%= @message.recipients.map{|x|x["number"]}.join(',') %></p>
+
+  <p><%= @message.recipient_type %></p>
+
+  <div class="actions">
+    <%= f.submit "Send" %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @message %> |
+<%= link_to 'Back', messages_path %>
