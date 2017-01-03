@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  protect_from_forgery prepend: true, with: :exception
+  
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
