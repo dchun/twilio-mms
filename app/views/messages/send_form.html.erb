@@ -25,7 +25,7 @@
 
   <p>Sender: <%= @message.sender %></p>
 
-  <p>Recipients: <%= @message.recipients.map{|x|x["number"]}.join(',') %></p>
+  <p>Recipients: <%= @message.recipients.map{|x|x["number"]}.compact.join(',') %></p>
 
   <p><%= @message.recipient_type %></p>
 
