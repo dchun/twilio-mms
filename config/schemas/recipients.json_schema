@@ -1,11 +1,11 @@
 {
     "type": "array",
-    	"items" : {
-        "type" : "object",
-        "properties" : {
-          "id" : { "type" : "string" },
-      		"number": { "type": "string" }
-        },
-        "required": ["id"]
-      }
+  	"items" : {
+      "type" : "object",
+      "properties" : {
+        "id" : { "type" : "string" },
+    		"number": { "type": "string" }
+      },
+      "required": ["id"]
+    }
 }
