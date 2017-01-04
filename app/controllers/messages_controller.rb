@@ -63,9 +63,8 @@ class MessagesController < ApplicationController
       twilio_account = current_user.services.find_by_name('twilio')
       if twilio_account
         if @message.update(message_params)
-          recipients = {'david' => '3104255775', 'david2' => '+14244420347'}
           twilio = BulkTwilio.new(twilio_account.service_id, twilio_account.authentication_token)
-          sent = twilio.send('+17026057410', recipients, @message.content, @message.media)
+          sent = twilio.send(@message.sender, @message.recipients, @message.content, @message.media)
           format.html { redirect_to @message, notice: 'Message was successfully sent.' }
           format.json { render :show, status: :ok, location: @message }
         else
@@ -97,6 +96,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:content, :media, :sender, :recipient_type, :user_id, recipients: [:id, :number])
+      params.require(:message).permit(:content, :media, :media_cache, :sender, :recipient_type, :user_id, :recipients)
     end
 end

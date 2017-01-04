@@ -20,7 +20,9 @@
 
   <div class="field">
     <%= f.label :media %>
-    <%= f.text_field :media %>
+    <%= image_tag(@message.media_url) if @message.media? %>
+    <%= f.file_field :media %>
+    <%= f.hidden_field :media_cache %>
   </div>
 
   <p>Sender: <%= @message.sender %></p>

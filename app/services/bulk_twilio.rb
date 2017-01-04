@@ -5,19 +5,19 @@ class BulkTwilio
   end
 
   def send(from, recipients, body, media)
-    recipients.each do |id, number|
+    recipients.each do |recipient|
       begin
         if media.present?
           message = @client.messages.create(
             from: from, 
-            to: number, 
+            to: recipient["number"], 
             body: body, 
             media_url: media
           )
         else
           message = @client.messages.create(
             from: from, 
-            to: number, 
+            to: recipient["number"], 
             body: body
           )
         end
