@@ -63,8 +63,13 @@ class MessagesController < ApplicationController
       twilio_account = current_user.services.find_by_name('twilio')
       if twilio_account
         if @message.update(message_params)
-          twilio = BulkTwilio.new(twilio_account.service_id, twilio_account.authentication_token)
-          sent = twilio.send(@message.sender, @message.recipients, @message.content, @message.media)
+          twilio = BulkTwilio.new(twilio_account.service_id, twilio_account.authentication_token, @message)
+          accepted_recipients = twilio.send
+          zoho_account = current_user.services.find_by_name('zoho')
+          if zoho_account
+            zoho = Zoho.new(zoho_account.authentication_token, accepted_recipients, @message)
+            response = zoho.update_message
+          end
           format.html { redirect_to @message, notice: 'Message was successfully sent.' }
           format.json { render :show, status: :ok, location: @message }
         else

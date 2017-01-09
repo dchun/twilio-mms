@@ -1,29 +1,25 @@
 class BulkTwilio
 
-  def initialize(id, token)
+  def initialize(id, token, message)
     @client = Twilio::REST::Client.new(id, token)
+    @message = message
   end
 
-  def send(from, recipients, body, media)
-    recipients.each do |recipient|
+  def send
+    accepted_recipients = []
+    @message.recipients.each do |recipient|
+      info = {}
+      info[:from] = @message.sender
+      info[:to] = recipient["number"]
+      info[:body] = @message.content
+      info[:media_url] = @message.media if @message.media.present?
       begin
-        if media.present?
-          message = @client.messages.create(
-            from: from, 
-            to: recipient["number"], 
-            body: body, 
-            media_url: media
-          )
-        else
-          message = @client.messages.create(
-            from: from, 
-            to: recipient["number"], 
-            body: body
-          )
-        end
+        message = @client.messages.create(info)
+        accepted_recipients << recipient["id"]
       rescue Twilio::REST::RequestError => e
         Rails.logger.debug e.message
       end
     end
+    accepted_recipients
   end
 end
