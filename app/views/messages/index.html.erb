@@ -23,7 +23,7 @@
         <td class="truncate"><%= message.media %></td>
         <td><%= message.sender_number %></td>
         <td><%= message.sender_name %></td>
-        <td><%= message.recipients.map{|x|x["name"]}.compact.join(', ') %></td>
+        <td><%= message.recipients.map{|x|x["name"] if x["name"].present?}.compact.join(', ') %></td>
         <td><%= message.recipient_type %></td>
         <td><%= message.created_at.strftime("%B %d, %Y")  %></td>
         <td><%= link_to 'Show', message %></td>
