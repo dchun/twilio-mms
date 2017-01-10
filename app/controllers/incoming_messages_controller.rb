@@ -25,10 +25,8 @@ class IncomingMessagesController < ApplicationController
 
     respond_to do |format|
       if @incoming_message.save
-        format.html { redirect_to @incoming_message, notice: 'Incoming message was successfully created.' }
         format.json { render :show, status: :created, location: @incoming_message }
       else
-        format.html { render :new }
         format.json { render json: @incoming_message.errors, status: :unprocessable_entity }
       end
     end
