@@ -38,6 +38,7 @@ class Zoho
       newFormat: 1, 
       authtoken: @authentication_token,
       scope: 'crmapi',
+      wfTrigger: true,
       xmlData: xml.target!
     }
     uri.query = URI.encode_www_form(params)
