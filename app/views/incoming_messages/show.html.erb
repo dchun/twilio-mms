@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @incoming_message.user %>
+  <strong>Created:</strong>
+  <%= @incoming_message.created_at.strftime("%B %d, %Y") %>
 </p>
 
 <%= link_to 'Back', incoming_messages_path %>

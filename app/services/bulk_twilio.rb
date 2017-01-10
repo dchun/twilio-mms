@@ -1,5 +1,3 @@
-include Rails.application.routes.url_helpers
-
 class BulkTwilio
 
   def initialize(service_id, authentication_token, message, user)
@@ -15,7 +13,7 @@ class BulkTwilio
       info[:to] = recipient["number"]
       info[:body] = @message.content
       info[:media_url] = @message.media if @message.media.present?
-      info[:status_callback] = update_status_outgoing_messages_url(user_email: @user.email, user_token: @user.authentication_token)
+      info[:status_callback] = "https://twilio-mms.herokuapp.com?user_email=#{@user.email}&user_token=#{@user.authentication_token}"
       begin
         m = @client.messages.create(info)
         OutgoingMessage.create(zid: recipient["id"], name: recipient["name"], sid: m.sid, number: m.to, status: m.status, message: @message, user: @user)
