@@ -8,7 +8,7 @@ class OutgoingMessage < ApplicationRecord
   
 private
   def update_zoho
-    if self.status == 'sent'
+    if self.status == 'delivered'
       if zoho_account = self.user.services.find_by_name('zoho')
         zoho = Zoho.new(zoho_account.service_id, zoho_account.authentication_token, self.zid, self.message)
         response = zoho.update
