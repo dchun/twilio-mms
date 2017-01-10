@@ -9,9 +9,13 @@ class OutgoingMessage < ApplicationRecord
 private
   def update_zoho
     if self.status == 'delivered'
-      if zoho_account = self.user.services.find_by_name('zoho')
-        zoho = Zoho.new(zoho_account.service_id, zoho_account.authentication_token, self.zid, self.message)
-        response = zoho.update
+      service = self.message.service
+      case service
+      when 'zoho'
+        if zoho_account = self.user.services.find_by_name('zoho')
+          zoho = Zoho.new(zoho_account.service_id, zoho_account.authentication_token, self.zid, self.message, 'outgoing')
+          response = zoho.update
+        end
       end
     end
   end

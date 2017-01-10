@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        message:
+          attributes:
+            recipients:
+              invalid_json: " field is invalid"

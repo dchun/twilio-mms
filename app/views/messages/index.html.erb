@@ -9,6 +9,7 @@
       <th>Media</th>
       <th>From</th>
       <th>By</th>
+      <th>Service</th>
       <th>Recipients</th>
       <th>Recipient type</th>
       <th>Created</th>
@@ -23,6 +24,7 @@
         <td class="truncate"><%= message.media %></td>
         <td><%= message.sender_number %></td>
         <td><%= message.sender_name %></td>
+        <td><%= message.service %></td>
         <td><%= message.recipients.map{|x|x["name"] if x["name"].present?}.compact.join(', ') %></td>
         <td><%= message.recipient_type %></td>
         <td><%= message.created_at.strftime("%B %d, %Y")  %></td>

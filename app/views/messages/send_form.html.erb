@@ -33,6 +33,9 @@
     <strong>By:</strong> <%= @message.sender_name %>
   </div>
   <div class="field">
+    <strong>Service:</strong> <%= @message.service %>
+  </div>
+  <div class="field">
     <strong>Recipients:</strong>
     <br>
     <% @message.recipients.each do |recipient| %>

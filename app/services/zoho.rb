@@ -3,11 +3,12 @@ class Zoho
   require 'uri'
   require 'net/http'
 
-  def initialize(service_id, authentication_token, zoho_id, message)
+  def initialize(service_id, authentication_token, zoho_id, message, type)
     @service_id = service_id
     @authentication_token = authentication_token
     @id = zoho_id
     @message = message
+    @type = type
   end
 
   def update
@@ -15,9 +16,9 @@ class Zoho
 
     xml.CustomModule1 do |c|
       c.row no: 1 do |r|
-        r.FL "MMS Sent", val: "MMS Name"
+        r.FL "#{@type} mms", val: "MMS Name"
         r.FL @message.content, val: "Content"
-        r.FL @message.media, val: "Media" if @message.media.present?
+        r.FL @message.media, val: "Media" if @message.media.present? && @type == 'outgoing'
         r.FL @message.sender_name, val: "Sender" if @message.sender_name.present?
         if @message.recipient_type == 'lead'
           r.FL @id, val: "Lead_ID"

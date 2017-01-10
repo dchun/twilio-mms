@@ -7,7 +7,7 @@ class Message < ApplicationRecord
 
   default_scope { order('id DESC') }
 
-  validates_presence_of :recipients
+  validates_presence_of :sender_number
   
   RECIPIENTS_JSON_SCHEMA = Rails.root.join('config', 'schemas', 'recipients.json_schema').to_s
 
