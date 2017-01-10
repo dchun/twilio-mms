@@ -13,7 +13,7 @@ private
       case service
       when 'zoho'
         if zoho_account = self.user.services.find_by_name('zoho')
-          zoho = Zoho.new(zoho_account.service_id, zoho_account.authentication_token, self.zid, self.message, 'outgoing')
+          zoho = Zoho.new(zoho_account.service_id, zoho_account.authentication_token, self.zid, self.message, self)
           response = zoho.update
         end
       end

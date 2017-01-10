@@ -16,10 +16,16 @@ class Zoho
 
     xml.CustomModule1 do |c|
       c.row no: 1 do |r|
-        r.FL "#{@type} mms", val: "MMS Name"
-        r.FL @message.content, val: "Content"
-        r.FL @message.media, val: "Media" if @message.media.present? && @type == 'outgoing'
-        r.FL @message.sender_name, val: "Sender" if @message.sender_name.present?
+        klass_name = @type.class.name
+        if klass_name== 'OutgoingMessage'
+          r.FL "Outgoing MMS", val: "MMS Name"
+          r.FL @message.content, val: "Content"
+          r.FL @message.media, val: "Media" if @message.media.present?
+          r.FL @message.sender_name, val: "Sender" if @message.sender_name.present?
+        elsif klass_name == 'IncomingMessage'
+          r.FL "Incoming MMS", val: "MMS Name"
+          r.FL @type.content, val: "Content"
+        end
         if @message.recipient_type == 'lead'
           r.FL @id, val: "Lead_ID"
         else
