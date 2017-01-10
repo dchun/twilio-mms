@@ -1,4 +1,5 @@
 class OutgoingMessagesController < ApplicationController
+  skip_before_action  :verify_authenticity_token
   before_action :set_outgoing_message, only: [:show]
 
   # GET /outgoing_messages
