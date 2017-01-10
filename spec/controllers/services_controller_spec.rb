@@ -141,19 +141,4 @@ RSpec.describe ServicesController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested service" do
-      service = Service.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: service.to_param}, session: valid_session
-      }.to change(Service, :count).by(-1)
-    end
-
-    it "redirects to the services list" do
-      service = Service.create! valid_attributes
-      delete :destroy, params: {id: service.to_param}, session: valid_session
-      expect(response).to redirect_to(services_url)
-    end
-  end
-
 end

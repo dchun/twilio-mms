@@ -1,11 +1,11 @@
 class MessagesController < ApplicationController
   skip_before_action  :verify_authenticity_token
-  before_action :set_message, only: [:show, :edit, :update, :send_form, :send_message, :destroy]
+  before_action :set_message, only: [:show, :edit, :update, :send_form, :twilio_send, :destroy]
 
   # GET /messages
   # GET /messages.json
   def index
-    @messages = current_user.messages
+    @messages = current_user.messages.page(params[:page])
   end
 
   # GET /messages/1
@@ -57,19 +57,14 @@ class MessagesController < ApplicationController
   def send_form
   end
 
-  # PATCH/PUT /messages/1/send
-  def send_message
+  # PATCH/PUT /messages/1/twilio_send
+  def twilio_send
     respond_to do |format|
       twilio_account = current_user.services.find_by_name('twilio')
       if twilio_account
         if @message.update(message_params)
-          twilio = BulkTwilio.new(twilio_account.service_id, twilio_account.authentication_token, @message)
-          accepted_recipients = twilio.send
-          zoho_account = current_user.services.find_by_name('zoho')
-          if zoho_account
-            zoho = Zoho.new(zoho_account.authentication_token, accepted_recipients, @message)
-            response = zoho.update_message
-          end
+          twilio = BulkTwilio.new(twilio_account.service_id, twilio_account.authentication_token, @message, current_user)
+          twilio.send
           format.html { redirect_to @message, notice: 'Message was successfully sent.' }
           format.json { render :show, status: :ok, location: @message }
         else
@@ -101,6 +96,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:content, :media, :media_cache, :sender, :recipient_type, :user_id, recipients: [:id, :number])
+      params.require(:message).permit(:content, :media, :media_cache, :sender_number, :sender_name, :recipient_type, :user_id, recipients: [:id, :number, :name])
     end
 end

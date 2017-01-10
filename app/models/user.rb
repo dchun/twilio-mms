@@ -8,4 +8,6 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :services
+  has_many :outgoing_messages
+  has_many :incoming_messages
 end

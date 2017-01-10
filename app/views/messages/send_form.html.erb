@@ -1,6 +1,6 @@
 <h1>Send Message</h1>
 
-<%= form_for(@message, url: {action: 'send_message'}) do |f| %>
+<%= form_for(@message, url: {action: 'twilio_send'}) do |f| %>
   <% if @message.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
@@ -15,22 +15,35 @@
 
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, cols: 50, rows: 5 %>
   </div>
 
   <div class="field">
     <%= f.label :media %>
     <%= image_tag(@message.media_url) if @message.media? %>
+    <br>
     <%= f.file_field :media %>
     <%= f.hidden_field :media_cache %>
   </div>
 
-  <p>Sender: <%= @message.sender %></p>
-
-  <p>Recipients: <%= @message.recipients.map{|x|x["number"]}.compact.join(',') %></p>
-
-  <p><%= @message.recipient_type %></p>
-
+  <div class="field">
+    <strong>From:</strong> <%= @message.sender_number %>
+  </div>
+  <div class="field">
+    <strong>By:</strong> <%= @message.sender_name %>
+  </div>
+  <div class="field">
+    <strong>Recipients:</strong>
+    <br>
+    <% @message.recipients.each do |recipient| %>
+      <%= recipient.map{|i,x| "#{i}: #{x}"}.compact.join(', ') %>
+    <br>
+    <% end %>
+  </div>
+  <div class="field">
+    <strong>Recipient Type:</strong> <%= @message.recipient_type %>
+  </div>
+  
   <div class="actions">
     <%= f.submit "Send" %>
   </div>

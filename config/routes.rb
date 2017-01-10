@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
+  resources :incoming_messages
+  resources :outgoing_messages do
+    collection do
+      post :update_status
+    end
+  end
   resources :services
   resources :messages do
     member do
       get :send_form
-      put :send_message
-      patch :send_message
+      put :twilio_send
+      patch :twilio_send
     end
   end
 

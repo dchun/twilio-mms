@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Incoming Messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sid</th>
+      <th>Number</th>
+      <th>Content</th>
+      <th>Created</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incoming_messages.each do |incoming_message| %>
+      <tr>
+        <td><%= incoming_message.sid %></td>
+        <td><%= incoming_message.number %></td>
+        <td><%= incoming_message.content %></td>
+        <td><%= incoming_message.created_at.strftime("%B %d, %Y")  %></td>
+        <td><%= link_to 'Show', incoming_message %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @incoming_messages  %>

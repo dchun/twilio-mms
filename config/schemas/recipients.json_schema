@@ -4,7 +4,8 @@
       "type" : "object",
       "properties" : {
         "id" : { "type" : "string" },
-    		"number": { "type": "string" }
+    		"number": { "type": "string" },
+    		"name": { "type": "string" }
       },
       "required": ["id"]
     }

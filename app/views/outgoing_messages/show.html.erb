@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Zid:</strong>
+  <%= @outgoing_message.zid %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @outgoing_message.name %>
+</p>
+
+<p>
+  <strong>Sid:</strong>
+  <%= @outgoing_message.sid %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @outgoing_message.number %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @outgoing_message.status %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= link_to @outgoing_message.message_id, @outgoing_message.message %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @outgoing_message.created_at.strftime("%B %d, %Y") %>
+</p>
+
+
+<%= link_to 'Back', outgoing_messages_path %>

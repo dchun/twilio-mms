@@ -3,6 +3,10 @@ class Message < ApplicationRecord
 
   belongs_to :user
 
+  has_many :outgoing_messages
+
+  default_scope { order('id DESC') }
+
   validates_presence_of :recipients
   
   RECIPIENTS_JSON_SCHEMA = Rails.root.join('config', 'schemas', 'recipients.json_schema').to_s

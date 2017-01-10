@@ -54,3 +54,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+# for use with service model
+Rails.application.routes.default_url_options[:host] = 'https://twilio-mms.herokuapp.com'

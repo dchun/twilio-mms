@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sid:</strong>
+  <%= @incoming_message.sid %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @incoming_message.number %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @incoming_message.content %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @incoming_message.user %>
+</p>
+
+<%= link_to 'Back', incoming_messages_path %>
