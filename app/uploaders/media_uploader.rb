@@ -1,20 +1,26 @@
-require 'carrierwave/processing/mime_types'
-
 class MediaUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  include CarrierWave::MimeTypes
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
-  storage :fog
+  storage :aws
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  def aws_attributes
+    case file.content_type
+    when "application/mp4"
+      { content_type: "video/mp4" }
+    when "application/mpeg"
+      { content_type: "video/mpeg" }
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -26,9 +32,6 @@ class MediaUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-
-  process :set_content_type
-
   # process scale: [200, 300]
   #
   # def scale(width, height)

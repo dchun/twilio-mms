@@ -42,7 +42,11 @@
 
 <p>
   <strong>Media:</strong>
-  <%= image_tag @message.media %>
+  <% if @message.media.content_type.starts_with? "video" %>
+    <%= video_tag @message.media, controls: true, autobuffer: true %>
+  <% else %>
+    <%= image_tag @message.media %>
+  <% end %>
 </p>
 
 <p>

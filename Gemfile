@@ -42,10 +42,9 @@ gem 'simple_token_authentication', '~> 1.0' # see semver.org
 
 gem 'twilio-ruby', '~> 4.11.1'
 
-gem 'carrierwave', '~> 1.0'
-# to resize images with carrierwave
+gem 'carrierwave-aws', '~> 1.0'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
-gem 'fog-aws', '~> 0.7.6'
+
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
 gem 'activerecord_json_validator', '~> 1.0'
