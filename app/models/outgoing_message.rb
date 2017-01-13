@@ -8,7 +8,7 @@ class OutgoingMessage < ApplicationRecord
   
 private
   def update_zoho
-    if self.status == 'delivered'
+    if self.status == 'sent'
       service = self.message.service
       case service
       when 'zoho'
