@@ -1,8 +1,11 @@
+require 'carrierwave/processing/mime_types'
+
 class MediaUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  include CarrierWave::MimeTypes
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
@@ -23,6 +26,9 @@ class MediaUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
+
+  process :set_content_type
+
   # process scale: [200, 300]
   #
   # def scale(width, height)
@@ -39,7 +45,7 @@ class MediaUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-    %w(jpg jpeg gif png mp4)
+    %w(jpg jpeg gif png mp4 mpeg)
   end
 
   # Override the filename of the uploaded files:
