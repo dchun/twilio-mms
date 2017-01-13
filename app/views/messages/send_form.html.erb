@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= f.label :media %>
-    <%= image_tag(@message.media_url) if @message.media? %>
+    <%= @message.media_url if @message.media? %>
     <br>
     <%= f.file_field :media %>
     <%= f.hidden_field :media_cache %>

@@ -14,7 +14,7 @@ class MediaUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def aws_attributes
+  def aws_write_options
     case file.content_type
     when "application/mp4"
       { content_type: "video/mp4" }

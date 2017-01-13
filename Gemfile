@@ -51,7 +51,8 @@ gem 'activerecord_json_validator', '~> 1.0'
 
 gem 'sidekiq', '~> 4.2', '>= 4.2.7'
 
-gem 'kaminari', '~> 0.16.3'
+gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

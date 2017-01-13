@@ -1,3 +1,21 @@
+GIT
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: c516f66109364aecfa58a00e78eee3281e401955
+  branch: master
+  specs:
+    kaminari (1.0.0)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.0)
+      kaminari-activerecord (= 1.0.0)
+      kaminari-core (= 1.0.0)
+    kaminari-actionview (1.0.0)
+      actionview
+      kaminari-core (= 1.0.0)
+    kaminari-activerecord (1.0.0)
+      activerecord
+      kaminari-core (= 1.0.0)
+    kaminari-core (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -103,9 +121,6 @@ GEM
     json-schema (2.7.0)
       addressable (>= 2.4)
     jwt (1.5.6)
-    kaminari (0.16.3)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -246,7 +261,7 @@ DEPENDENCIES
   figaro (~> 1.1, >= 1.1.1)
   jbuilder (~> 2.5)
   jquery-rails
-  kaminari (~> 0.16.3)
+  kaminari!
   listen (~> 3.0.5)
   mini_magick (~> 4.5, >= 4.5.1)
   pg (~> 0.18)

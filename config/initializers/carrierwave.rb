@@ -5,14 +5,14 @@ CarrierWave.configure do |config|
 
   # Optionally define an asset host for configurations that are fronted by a
   # content host, such as CloudFront.
-  # config.asset_host = 'http://localhost:3000'
+  # config.asset_host = 'http://example.com'
 
   # The maximum period for authenticated_urls is only 14 days.
   config.aws_authenticated_url_expiration = 60 * 60 * 24 * 14
 
   # Set custom options such as cache control to leverage browser caching
   config.aws_attributes = {
-    expires: 1.month.from_now.httpdate,
+    expires: 2.week.from_now.httpdate,
     cache_control: "max-age=#{14.day.to_i}"
   }
 
@@ -22,4 +22,10 @@ CarrierWave.configure do |config|
     region:            'us-west-1' # Required
   }
 
+  # Optional: Signing of download urls, e.g. for serving private content through
+  # CloudFront. Be sure you have the `cloudfront-signer` gem installed and
+  # configured:
+  # config.aws_signer = -> (unsigned_url, options) do
+  #   Aws::CF::Signer.sign_url(unsigned_url, options)
+  # end
 end
