@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
           format.html { redirect_to @message, notice: 'Message was successfully sent.' }
           format.json { render :show, status: :ok, location: @message }
         else
-          format.html { render :send }
+          format.html { render :send_form }
           format.json { render json: @message.errors, status: :unprocessable_entity }
         end
       else

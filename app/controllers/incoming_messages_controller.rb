@@ -25,9 +25,9 @@ class IncomingMessagesController < ApplicationController
 
     respond_to do |format|
       if @incoming_message.save
-        format.json { render :show, status: :created, location: @incoming_message }
+        format.xml { render xml: @incoming_message.to_xml, status: :created, location: @user }
       else
-        format.json { render json: @incoming_message.errors, status: :unprocessable_entity }
+        format.xml { render xml: @incoming_message.errors, status: :unprocessable_entity }
       end
     end
   end
