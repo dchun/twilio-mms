@@ -23,3 +23,6 @@ module TwilioMms
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# custom json response for devise
+require './lib/custom_failure.rb'
