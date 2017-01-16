@@ -1,6 +1,9 @@
 .logo {
   float: left;
 }
+.logo a {
+  text-decoration: none;
+}
 .menu {
   float: right;
 }
@@ -17,4 +20,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 250px;
+}
+#alert {
+  color: red;
 }

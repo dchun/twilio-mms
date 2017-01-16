@@ -1,2 +1,14 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Welcome</h1>
+
+<br>
+
+<h2>Setup</h2>
+<ol>
+  <li>Go to <%= link_to "Linked Accounts", new_service_path  %> and add you twilio account sid and authentication code. For name of service add "twilio".</li>
+  <li>Sync zoho crm. For service id, go to your zoho crm setup and under the modules list search for "MMSs". Next to it under "Module Name", you will see something like "CustomModule1". Add that as the service id field. Then create and add your authentication code (<%= link_to "instructions here", "https://www.zoho.com/crm/help/api/using-authentication-token.html" %>).</li>
+</ol>
+
+<h2>Configuration</h2>
+<ol>
+  <li>To confirm receipt of incoming messages, go to your twilio console and under "Programmable SMS" > "Messaging Services" click on the account you want to configure and under "Inbound Settings" add "http://twilio-mms.herokuapp.com/incoming_messages" to the "Request URL" input field.</li>
+</ol>
