@@ -8,7 +8,7 @@ class IncomingMessage < ApplicationRecord
 private
   def update_zoho
     outgoing_message = self.user.outgoing_messages.find_by_number(self.number)
-    if outgoing_message && ['sent', 'delivered'].include? outgoing_message.status
+    if outgoing_message && ['sent', 'delivered'].include?(outgoing_message.status)
       service = outgoing_message.message.service
       case service
       when 'zoho'
