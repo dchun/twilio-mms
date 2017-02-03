@@ -53,6 +53,7 @@ gem 'sidekiq', '~> 4.2', '>= 4.2.7'
 
 gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
 
+gem 'stripe', '~> 1.58'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

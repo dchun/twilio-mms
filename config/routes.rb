@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payments
   resources :incoming_messages
   resources :outgoing_messages do
     collection do
@@ -16,7 +17,11 @@ Rails.application.routes.draw do
 
   get 'home/index'
 
-  devise_for :users
+  devise_for :users, 
+    controllers: {
+      sessions: "sessions"
+    }
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"
 end

@@ -10,4 +10,12 @@ class User < ApplicationRecord
   has_many :services
   has_many :outgoing_messages
   has_many :incoming_messages
+  has_many :payments
+
+  before_create :trial_expiration
+
+private
+  def trial_expiration
+    self.valid_until = Date.today + 1.week
+  end
 end

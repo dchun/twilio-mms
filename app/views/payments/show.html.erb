@@ -1,0 +1,26 @@
+<p>
+  <strong>Email:</strong>
+  <%= @payment.email %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @payment.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= number_to_currency(@payment.amount, :unit => "$") %>
+</p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @payment.plan.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @payment.created_at.strftime("%B %d, %Y") %>
+</p>
+
+<%= link_to 'All Payments', payments_path %>

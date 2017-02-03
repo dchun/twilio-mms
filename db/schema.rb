@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110203014) do
+ActiveRecord::Schema.define(version: 20170203004414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,28 @@ ActiveRecord::Schema.define(version: 20170110203014) do
     t.index ["zid"], name: "index_outgoing_messages_on_zid", using: :btree
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.string   "email"
+    t.string   "description"
+    t.decimal  "amount",         precision: 8, scale: 2
+    t.string   "card_token"
+    t.string   "customer_token"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["plan_id"], name: "index_payments_on_plan_id", using: :btree
+    t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.decimal  "decimal",    precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "services", force: :cascade do |t|
     t.string   "name"
     t.string   "service_id"
@@ -82,6 +104,7 @@ ActiveRecord::Schema.define(version: 20170110203014) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.string   "authentication_token",   limit: 30
+    t.date     "valid_until"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -91,5 +114,7 @@ ActiveRecord::Schema.define(version: 20170110203014) do
   add_foreign_key "messages", "users"
   add_foreign_key "outgoing_messages", "messages"
   add_foreign_key "outgoing_messages", "users"
+  add_foreign_key "payments", "plans"
+  add_foreign_key "payments", "users"
   add_foreign_key "services", "users"
 end

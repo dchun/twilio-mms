@@ -1,0 +1,31 @@
+<h1>Payments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Plan</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.email %></td>
+        <td><%= payment.description %></td>
+        <td><%= number_to_currency(payment.amount, :unit => "$") %></td>
+        <td><%= payment.plan.name %></td>
+        <td><%= payment.created_at.strftime("%B %d, %Y")  %></td>
+        <td><%= link_to 'Show', payment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @payments  %>

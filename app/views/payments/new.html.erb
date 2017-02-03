@@ -1,0 +1,26 @@
+<%= form_for(@payment) do |f| %>
+  <% if @payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+      <% @payment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Single User Account</h2>
+  <p>Monthly usage fee $49.00</p>
+  <div class="field">
+    <%= f.hidden_field :plan_id, value: Plan.first.id %>
+  </div>
+
+  <%= javascript_include_tag "https://checkout.stripe.com/checkout.js",
+                             class: "stripe-button",
+                             data: {amount: Plan.first.price.to_i * 100, 
+                                    description: Plan.first.name, 
+                                    key: ENV['stripe_publishable_key'],
+                                    locale: "auto"} %>
+<% end %>

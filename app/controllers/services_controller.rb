@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update]
+  before_action :expired?
 
   # GET /services
   # GET /services.json

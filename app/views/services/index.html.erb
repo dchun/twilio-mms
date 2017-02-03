@@ -9,7 +9,8 @@
     <tr>
       <th>Name</th>
       <th>Service ID</th>
-      <th>Authentication token</th>
+      <th>Authentication Token</th>
+      <th id="alert">Valid Until</th>
     </tr>
   </thead>
 
@@ -18,6 +19,7 @@
       <td>twilio-mms</td>
       <td><%= current_user.email %></td>
       <td><%= current_user.authentication_token %></td>
+      <td id="alert"><%= current_user.valid_until.strftime("%B %d, %Y") %></td>
     </tr>
   </tbody>
 </table>
