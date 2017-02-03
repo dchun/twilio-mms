@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :payments do
     collection do
-      post :hook
+      post :webhook
     end
   end
   resources :incoming_messages
