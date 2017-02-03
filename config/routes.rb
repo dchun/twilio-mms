@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :payments
+  resources :payments do
+    collection do
+      post :hook
+    end
+  end
   resources :incoming_messages
   resources :outgoing_messages do
     collection do
