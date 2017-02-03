@@ -20,7 +20,7 @@ class Payment < ApplicationRecord
   end
 
   def renew
-    user.update_attibute :valid_until, Date.today + 1.month
+    user.update_attribute :valid_until, Date.today + 1.month
   end
 
 end
