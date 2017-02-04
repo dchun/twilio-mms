@@ -1,5 +1,12 @@
 class PaymentsController < ApplicationController
   skip_before_action :expired?, only: [:new, :create, :webhook]
+  skip_before_action :authenticate_user!, only: :webhook, :if => lambda { 
+    if params[:token]
+      params[:token] == ENV['stripe_webhook_token']
+    else
+      false
+    end
+  }
 
   def index
     @payments = current_user.payments.page(params[:page])
@@ -32,7 +39,7 @@ class PaymentsController < ApplicationController
     render :new
   end
 
-# POST /payments/hook
+# POST /payments/webhook
 protect_from_forgery except: :webhook
   def webhook
     event = Stripe::Event.retrieve(params["id"])
