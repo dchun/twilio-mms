@@ -1,6 +1,8 @@
 class PaymentsController < ApplicationController
   skip_before_action :expired?, only: [:new, :create, :webhook]
-  skip_before_action :authenticate_user!, raise: false, only: [:webhook], :if => lambda { 
+  skip_before_action :verify_authenticity_token, only: [:webhook]
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:webhook], raise: false, if: -> {
     if params[:token]
       params[:token] == ENV['stripe_webhook_token']
     else
@@ -35,12 +37,12 @@ class PaymentsController < ApplicationController
     end
 
   rescue Stripe::CardError => e
+    Rails.logger.debug e.message
     flash[:error] = e.message
     render :new
   end
 
 # POST /payments/webhook
-protect_from_forgery except: :webhook
   def webhook
     event = Stripe::Event.retrieve(params["id"])
 
@@ -49,6 +51,9 @@ protect_from_forgery except: :webhook
         Payment.find_by_customer_id(event.data.object.customer).renew
     end
     render status: :ok, json: "success"
+  rescue Stripe::InvalidRequestError => e
+    Rails.logger.debug e.message
+    render status: :unprocessable_entity, json: e.message
   end
 
 private

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
-  acts_as_token_authentication_handler_for User
+    
+  acts_as_token_authentication_handler_for User, unless: lambda { |controller| controller.controller_name == 'payments'}
 
   before_action :expired?
 
