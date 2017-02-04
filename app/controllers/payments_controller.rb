@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   skip_before_action :expired?, only: [:new, :create, :webhook]
-  skip_before_action :authenticate_user!, only: [:webhook], :if => lambda { 
+  skip_before_action :authenticate_user!, raise: false, only: [:webhook], :if => lambda { 
     if params[:token]
       params[:token] == ENV['stripe_webhook_token']
     else
