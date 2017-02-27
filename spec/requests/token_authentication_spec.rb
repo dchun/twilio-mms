@@ -1,8 +1,7 @@
-require 'rails_helper'
-
 RSpec.describe "TokenAuthenication", type: :request do
+  let (:user) {FactoryGirl.create :user}
+
   it 'should log in user' do
-    user = FactoryGirl.create :user
     get '/', params: {}, headers: { 'X-User-Email' => user.email, 'X-User-Token' => user.authentication_token }
     expect(response).to have_http_status(200)
   end

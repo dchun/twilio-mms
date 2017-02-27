@@ -1,16 +1,7 @@
-require 'rails_helper'
-
 RSpec.describe "outgoing_messages/show", type: :view do
   before(:each) do
-    @outgoing_message = assign(:outgoing_message, OutgoingMessage.create!(
-      :zid => "Zid",
-      :name => "Name",
-      :sid => "Sid",
-      :number => "Number",
-      :status => "Status",
-      :message => nil,
-      :user => nil
-    ))
+    @outgoing_message = FactoryGirl.create(:outgoing_message)
+    assign(:outgoing_message, @outgoing_message)
   end
 
   it "renders attributes in <p>" do

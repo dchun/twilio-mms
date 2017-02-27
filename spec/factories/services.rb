@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :service do
-    name "MyString"
-    service_id "MyString"
-    authentication_token "MyString"
-    user nil
+    name "twilio"
+    service_id 1
+    authentication_token "token"
+    user
   end
 end

@@ -1,28 +1,16 @@
-require 'rails_helper'
-
 RSpec.describe "services/index", type: :view do
   before(:each) do
-    assign(:services, [
-      Service.create!(
-        :name => "Name",
-        :service_id => "Service",
-        :authentication_token => "Authentication Token",
-        :user => nil
-      ),
-      Service.create!(
-        :name => "Name",
-        :service_id => "Service",
-        :authentication_token => "Authentication Token",
-        :user => nil
-      )
-    ])
+    @twilio = FactoryGirl.create(:service)
+    @zoho = FactoryGirl.create(:service, name: "zoho", service_id: "module", authentication_token: "token")
+    assign(:services, [@twilio, @zoho])
+    current_user = @twilio.user   
+    allow(view).to receive(:current_user).and_return(current_user)
+    allow(view).to receive_messages(:paginate => nil)
   end
 
   it "renders a list of services" do
     render
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Service".to_s, :count => 2
-    assert_select "tr>td", :text => "Authentication Token".to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
+    expect(rendered).to match(/twilio/)
+    expect(rendered).to match(/zoho/)
   end
 end

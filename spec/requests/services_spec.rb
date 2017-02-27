@@ -1,6 +1,6 @@
-require 'rails_helper'
-
 RSpec.describe "Services", type: :request do
+  sign_in_as_a_valid_user
+  
   describe "GET /services" do
     it "works! (now write some real specs)" do
       get services_path
