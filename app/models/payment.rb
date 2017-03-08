@@ -8,10 +8,12 @@ class Payment < ApplicationRecord
     customer = Stripe::Customer.create(email: email,
                                        card: card_token)
 
-    Stripe::Charge.create(customer: customer.id,
-                          amount: plan.price.to_i * 100,
-                          description: plan.name,
-                          currency: 'usd')
+    # Stripe::Charge.create(customer: customer.id,
+    #                       amount: plan.price.to_i * 100,
+    #                       description: plan.name,
+    #                       currency: 'usd')
+
+    customer.subscriptions.create(plan: plan.id)
 
     self.customer_token = customer.id
     self.amount = plan.price
