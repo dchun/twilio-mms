@@ -48,9 +48,10 @@ class PaymentsController < ApplicationController
 
     case event.type
       when "invoice.payment_succeeded" #renew subscription
-        last_payment = Payment.find_by_customer_token(event.data.object.customer).renew
+        last_payment = Payment.find_by_customer_token(event.data.object.customer)
         new_payment = last_payment.dup
         new_payment.save
+        new_payment.renew
     end
     render status: :ok, json: "success"
   rescue Stripe::InvalidRequestError => e
