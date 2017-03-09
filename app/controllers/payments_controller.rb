@@ -48,10 +48,15 @@ class PaymentsController < ApplicationController
 
     case event.type
       when "invoice.payment_succeeded" #renew subscription
-        last_payment = Payment.find_by_customer_token(event.data.object.customer)
-        new_payment = last_payment.dup
-        new_payment.save
-        new_payment.renew
+        # this is a hack to deal with forgetting to add subscription after making plans
+        # to avoid creating duplicate payments during card entry and webhook confirmation
+        payments = Payment.where(customer_token: event.data.object.customer)
+        if payments.count > 1
+          last_payment = payments.last
+          new_payment = last_payment.dup
+          new_payment.save
+          new_payment.renew
+        end
     end
     render status: :ok, json: "success"
   rescue Stripe::InvalidRequestError => e
